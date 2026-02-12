@@ -1,0 +1,7 @@
+easyocr>=1.7.0
+opencv-python>=4.8.0
+numpy>=1.23
+torch>=2.0
+ultralytics>=8.0
+pillow
+tqdm

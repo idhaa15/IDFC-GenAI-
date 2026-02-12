@@ -1,0 +1,42 @@
+{
+  "doc_id": "172679241_1_pg25",
+  "fields": {
+    "dealer_name": {
+      "value": "CHAMUNDESHARI AGENCIES",
+      "confidence": 0.729
+    },
+    "model_name": {
+      "value": "७> F६ ५० HP",
+      "confidence": 0.696
+    },
+    "horse_power": {
+      "value": 50,
+      "confidence": 0.653
+    },
+    "asset_cost": {
+      "value": 720000,
+      "confidence": 0.84
+    },
+    "stamp": {
+      "present": true,
+      "bbox": [
+        1083,
+        1987,
+        1350,
+        2258
+      ],
+      "confidence": 0.9786832332611084
+    },
+    "signature": {
+      "present": true,
+      "bbox": [
+        1122,
+        2057,
+        1311,
+        2168
+      ],
+      "confidence": 0.5733397006988525
+    }
+  },
+  "overall_confidence": 0.779
+}
