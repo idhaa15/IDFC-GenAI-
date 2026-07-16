@@ -7,6 +7,7 @@ from utils.ocr import get_cached_ocr_blocks
 from utils.extraction import *
 from utils.yolo_detector import detect_stamp_and_signature
 from utils.confidence import compute_overall_confidence
+from utils.master_match import match_dealer_name, match_model_name
 
 
 def process_invoice_single(img_path):
@@ -20,8 +21,18 @@ def process_invoice_single(img_path):
     blocks = get_cached_ocr_blocks(img_path)
 
     # ---------- Rule-based extraction ----------
-    dealer, dealer_conf = extract_dealer_name_with_conf(blocks, H, W)
-    model, model_conf = extract_model_name_with_conf(blocks, H)
+    dealer_raw, dealer_raw_conf = extract_dealer_name_with_conf(blocks, H, W)
+    model_raw, model_raw_conf = extract_model_name_with_conf(blocks, H)
+
+    dealer, dealer_match_conf = match_dealer_name(dealer_raw)
+    model, model_match_conf = match_model_name(model_raw)
+
+    # Combine OCR-extraction confidence with master-match confidence —
+    # a field is only as trustworthy as its weakest link. If there's no
+    # confident master match, dealer_match_conf is 0 and this correctly
+    # tanks the overall field confidence rather than trusting raw OCR alone.
+    dealer_conf = round(min(dealer_raw_conf, dealer_match_conf), 3)
+    model_conf = round(min(model_raw_conf, model_match_conf), 3)
     hp, hp_conf = extract_horse_power_with_conf(blocks, model)
     asset_cost, asset_cost_conf = extract_asset_cost_with_conf(blocks, H, W)
 
